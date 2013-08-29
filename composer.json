@@ -1,5 +1,7 @@
 {
     "require": {
-        "silex/silex": "1.*"
+        "silex/silex": "1.*",
+        "predis/predis": "0.8.*@dev",
+        "predis/service-provider": "dev-master"
     }
 }
