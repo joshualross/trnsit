@@ -1,3 +1,40 @@
+
+
+
+I thought about how Uber must use algorithms to find nearest neighbor or closest points
+
+but I wanted to find abitrary points z distance from x,y on the surface of the earth
+
+since distances were so small it wasn't worth it to calculate the actual longitude 
+based on the circumference of the earth, I felt my algorithms were simple but 
+just enough
+
+pull a range of lon between two values
+pull a range of lat between two values
+intersect those data points to get the nearby stops
+if no stops, increase distance of search and try again
+
+
+11223 muni stops
+
+
+
+
+
+
+
+
+
+http://backbonetutorials.com/organizing-backbone-using-modules/
+
+no experience using require, bootstrap, silex, twig
+
+I've only used backbone to lazy load data that was then sortable and summarizable in table form
+
+
+
+
+
 Web Coding Challenge
 ====================
 

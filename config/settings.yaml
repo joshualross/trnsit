@@ -1,0 +1,17 @@
+predis:
+  parameters: tcp://proxy3.openredis.com:13034?password=7633cf76fa6391aed1b6fa6861cfa3f14affda5306f336e615877a7e3609f33a
+twig:
+  path: /web/view
+monolog:
+  logfile: /log/development.log
+services:
+  NextBus: 
+    key: false
+    url: http://webservices.nextbus.com/service/publicXMLFeed
+  Bart:
+    key: BXKR-26IN-YLS6-RKVD
+    url: http://api.bart.gov/api/stn.aspx
+  FiveOneOne: #SF-MUNI, BART
+    key: 57d209fa-8c1d-49ab-a666-8d378a58e8f4
+    url: http://services.my511.org/Transit2.0/
+    
