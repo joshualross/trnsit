@@ -13,6 +13,6 @@ ini_set('display_errors', true);
 //simple app autoloader
 spl_autoload_register(function($class) {
     $filename = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-    @include(DIRECTORY_SEPARATOR . $filename);
+    @include($filename);
 });
 require_once __BASE__ . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';

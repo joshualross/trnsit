@@ -119,12 +119,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "cb18d67b6ab6b8e567c1ab50fe999d1d624f9884"
+                "reference": "4824af15631f6a80a939cdc58104d03e0aadd17a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/cb18d67b6ab6b8e567c1ab50fe999d1d624f9884",
-                "reference": "cb18d67b6ab6b8e567c1ab50fe999d1d624f9884",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/4824af15631f6a80a939cdc58104d03e0aadd17a",
+                "reference": "4824af15631f6a80a939cdc58104d03e0aadd17a",
                 "shasum": ""
             },
             "require": {
@@ -158,7 +158,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2013-07-27 09:13:54"
+            "time": "2013-08-31 08:51:10"
         },
         {
             "name": "predis/service-provider",
