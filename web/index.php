@@ -1,8 +1,6 @@
 <?php
 // web/index.php
-//@todo how to handle base
-$base = str_replace('web', '', __DIR__);
-require_once $base . 'bootstrap.php';
+require_once '../bootstrap.php';
 //@todo base directory for loading settings etc
 
 use Symfony\Component\HttpFoundation\Request;
@@ -24,16 +22,16 @@ class UberApplication extends Application
 $app = new UberApplication();
 $app['debug'] = true;
 
-$app->register(new YamlConfigServiceProvider($base . 'config' . DIRECTORY_SEPARATOR . 'settings.yaml'));
+$app->register(new YamlConfigServiceProvider(__BASE__ . 'config' . DIRECTORY_SEPARATOR . 'settings.yaml'));
 //@todo handle config so that objects in yaml correspond to dot notation
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.logfile' => $base . $app['config']['monolog']['logfile'],
+    'monolog.logfile' => __BASE__ . $app['config']['monolog']['logfile'],
 ));
 $app->register(new Predis\Silex\PredisServiceProvider(), array(
     'predis.parameters' => $app['config']['predis']['parameters'],
 ));
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => $base . $app['config']['twig']['path'],
+    'twig.path' => __BASE__ . $app['config']['twig']['path'],
 ));
 
 

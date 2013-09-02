@@ -1,6 +1,5 @@
 <?php
-$base = str_replace('script', '', __DIR__);
-require_once $base . 'bootstrap.php';
+require_once '../bootstrap.php';
 // ini_set('error_log', 'php://stdout');
 // ini_set('display_errors', 'stderr');
 
@@ -15,7 +14,7 @@ use Symfony\Component\Yaml\Yaml;
 //one value for each, longitude and latitude
 
 
-$config = Yaml::parse($base . 'config' . DIRECTORY_SEPARATOR . 'settings.yaml');
+$config = Yaml::parse(__BASE__ . 'config' . DIRECTORY_SEPARATOR . 'settings.yaml');
 
 //get the muni routes
 //make a curl call
