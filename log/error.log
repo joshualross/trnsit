@@ -1,0 +1,56 @@
+[02-Sep-2013 21:28:00 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:00 Europe/Berlin] PHP Fatal error:  Uncaught exception 'UnexpectedValueException' with message 'The stream or file "C:\Users\jross\git\uber\/log/development.log" could not be opened: failed to open stream: Permission denied' in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php:71
+Stack trace:
+#0 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\AbstractProcessingHandler.php(37): Monolog\Handler\StreamHandler->write(Array)
+#1 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(239): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(315): Monolog\Logger->addRecord(500, 'UnexpectedValue...', Array)
+#3 C:\Users\jross\git\uber\vendor\silex\silex\src\Silex\Provider\MonologServiceProvider.php(78): Monolog\Logger->addCritical('UnexpectedValue...', Array)
+#4 [internal function]: Silex\Provider\MonologServiceProvider->Silex\Provider\{closure}(Object(UnexpectedValueException), 500)
+#5 C:\Users\jross\git\uber in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php on line 71
+[02-Sep-2013 21:28:10 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:10 Europe/Berlin] PHP Fatal error:  Uncaught exception 'UnexpectedValueException' with message 'The stream or file "C:\Users\jross\git\uber\/log/development.log" could not be opened: failed to open stream: Permission denied' in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php:71
+Stack trace:
+#0 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\AbstractProcessingHandler.php(37): Monolog\Handler\StreamHandler->write(Array)
+#1 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(239): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(315): Monolog\Logger->addRecord(500, 'UnexpectedValue...', Array)
+#3 C:\Users\jross\git\uber\vendor\silex\silex\src\Silex\Provider\MonologServiceProvider.php(78): Monolog\Logger->addCritical('UnexpectedValue...', Array)
+#4 [internal function]: Silex\Provider\MonologServiceProvider->Silex\Provider\{closure}(Object(UnexpectedValueException), 500)
+#5 C:\Users\jross\git\uber in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php on line 71
+[02-Sep-2013 21:28:11 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:11 Europe/Berlin] PHP Fatal error:  Uncaught exception 'UnexpectedValueException' with message 'The stream or file "C:\Users\jross\git\uber\/log/development.log" could not be opened: failed to open stream: Permission denied' in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php:71
+Stack trace:
+#0 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\AbstractProcessingHandler.php(37): Monolog\Handler\StreamHandler->write(Array)
+#1 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(239): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(315): Monolog\Logger->addRecord(500, 'UnexpectedValue...', Array)
+#3 C:\Users\jross\git\uber\vendor\silex\silex\src\Silex\Provider\MonologServiceProvider.php(78): Monolog\Logger->addCritical('UnexpectedValue...', Array)
+#4 [internal function]: Silex\Provider\MonologServiceProvider->Silex\Provider\{closure}(Object(UnexpectedValueException), 500)
+#5 C:\Users\jross\git\uber in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php on line 71
+[02-Sep-2013 21:28:13 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:14 Europe/Berlin] PHP Fatal error:  Uncaught exception 'UnexpectedValueException' with message 'The stream or file "C:\Users\jross\git\uber\/log/development.log" could not be opened: failed to open stream: Permission denied' in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php:71
+Stack trace:
+#0 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\AbstractProcessingHandler.php(37): Monolog\Handler\StreamHandler->write(Array)
+#1 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(239): Monolog\Handler\AbstractProcessingHandler->handle(Array)
+#2 C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Logger.php(315): Monolog\Logger->addRecord(500, 'UnexpectedValue...', Array)
+#3 C:\Users\jross\git\uber\vendor\silex\silex\src\Silex\Provider\MonologServiceProvider.php(78): Monolog\Logger->addCritical('UnexpectedValue...', Array)
+#4 [internal function]: Silex\Provider\MonologServiceProvider->Silex\Provider\{closure}(Object(UnexpectedValueException), 500)
+#5 C:\Users\jross\git\uber in C:\Users\jross\git\uber\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php on line 71
+[02-Sep-2013 21:28:28 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:28 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Twig\Extension\RoutingExtension.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:29 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:29 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:28:30 Europe/Berlin] include(): Failed opening 'Symfony\Bridge\Monolog\Logger.php' for inclusion (include_path='C:\Users\jross\git\uber\;.;C:\xampp\php\PEAR')
+[02-Sep-2013 21:31:29 Europe/Berlin] PHP Fatal error:  Class 'app\provider\YamlConfigServiceProvider' not found in C:\Users\jross\git\uber\web\index.php on line 25
+[02-Sep-2013 21:31:32 Europe/Berlin] PHP Fatal error:  Class 'app\provider\YamlConfigServiceProvider' not found in C:\Users\jross\git\uber\web\index.php on line 25
+[02-Sep-2013 21:31:34 Europe/Berlin] PHP Fatal error:  Class 'app\provider\YamlConfigServiceProvider' not found in C:\Users\jross\git\uber\web\index.php on line 25
+[02-Sep-2013 21:57:54 Europe/Berlin] PHP Fatal error:  Uncaught exception 'InvalidArgumentException' with message 'Identifier "autoloader" is not defined.' in C:\Users\jross\git\uber\vendor\pimple\pimple\lib\Pimple.php:78
+Stack trace:
+#0 C:\Users\jross\git\uber\web\index.php(24): Pimple->offsetGet('autoloader')
+#1 {main}
+  thrown in C:\Users\jross\git\uber\vendor\pimple\pimple\lib\Pimple.php on line 78
