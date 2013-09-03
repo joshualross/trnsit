@@ -21,11 +21,15 @@ class NextBus extends Service
     );
 
     /**
-     * Initialization of the data set
+     * Initialization of the data set - this is only called from cli script, it is intended to populate the database
+     * from the nextbus service
      *
-     * @return
+     * this method is purposefully protected so that a potentiall caller must first extend this class, then
+     * implement a method that will call init.
+     *
+     * @return array
      */
-    public function init()
+    protected function init()
     {
         $service = self::SERVICE_MUNI;
 
@@ -47,17 +51,14 @@ class NextBus extends Service
             $routeIds[$routeId] = $routeId;
         }
 
-//for testing
-// $routeIds = array('N', '21', '6', '71');
-
         foreach ($routeIds as $routeId)
         {
-
             $result = array('LON' => array(), 'LAT' => array());
             $count = 0;
 
             do
             {
+                //nextbus has limits, so retry a few times if we hit an error, just in case we hit a limit
                 if ($count > 0)
                     sleep(10); //might need to do exponential backoff
                 $url = $this->appendKey($this->url . '?command=routeConfig&a=sf-muni&r=' . $routeId);
@@ -67,10 +68,7 @@ class NextBus extends Service
 
             //fail
             if (false !== stripos($data, '<Error'))
-            {
-//                 print_r($data);
                 throw new \Exception('Unable to get route data from service');
-            }
 
             $iterator = new \SimpleXMLIterator($data);
             $route = (string)$iterator->route->attributes()->tag;
@@ -116,7 +114,6 @@ class NextBus extends Service
             }
 
             $results[] = $result;
-            sleep(5);
         }
 
         return $results;
@@ -129,16 +126,16 @@ class NextBus extends Service
      */
     public function getPrediction(StopCollection $stops)
     {
-//         $collection =
-
         $monolog = func_get_arg(1);
-
-$monolog->addRecord(200, __METHOD__);
+        $collection = new PredictionCollection();
 
         //build an array of get parameters
         $parameters = array();
         foreach ($stops as $stop)
         {
+            //check if this is in redis cache already
+
+
             $serviceName = $this->serviceNames[$stop->service];
             if (!isset($parameters[$serviceName]))
                 $parameters[$serviceName] = array();
@@ -146,7 +143,6 @@ $monolog->addRecord(200, __METHOD__);
             $parameters[$serviceName][] = "stops={$stop->route}|{$stop->tag}";
         }
 
-        $collection = new PredictionCollection();
 
         //get the routes
         foreach ($parameters as $service => $stops)

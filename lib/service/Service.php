@@ -42,14 +42,14 @@ abstract class Service
      * @todo fill in return type
      * @return
      */
-    abstract function init();
+    protected abstract function init();
 
     /**
      * Given a collection of stops, get the predictions
      * @param lib\struct\collection\Stop $stops
      * @return
      */
-    abstract function getPrediction(StopCollection $stops);
+    public abstract function getPrediction(StopCollection $stops);
 
     //get routes?
     //get route prediction for stop
@@ -59,7 +59,7 @@ abstract class Service
      * Given an url, return the url with the key
      * @param string $url
      */
-    abstract function appendKey($url);
+    public abstract function appendKey($url);
 
     //make api call
     /**
