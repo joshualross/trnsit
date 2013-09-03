@@ -15,6 +15,7 @@
 		</div>	
 	{{/each}}
 {{else}}
-	<div>No predictions.  Ohrly?  Yrly -__- </div>	
+	<div>The future is unknown!  ... and we had some problem finding predictions :( </div>	
+	<div>"I never think of the future - it comes soon enough." (Albert Einstein)</div>
 {{/if}}
 
