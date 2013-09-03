@@ -11,4 +11,11 @@ define([
             return 'late';
         return 'delayed';
     });
+    Handlebars.registerHelper('arrow_class', function() {
+        var arrowClass = 'icon-arrow-up';
+        if (-1 != this.direction.indexOf('IB'))
+            arrowClass = 'icon-arrow-down';
+        return arrowClass;
+    });
+    
 });

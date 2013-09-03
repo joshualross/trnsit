@@ -8,7 +8,7 @@
 				<ul>
 					<li class="prediction"><h3>{{minutes}} minutes</h3></li>
 					<li class="title">{{stopTitle}}</li>
-					<li class="direction">{{directionTitle}}</li>
+					<li class="direction"><i class="{{arrow_class}}"></i> {{directionTitle}}</li>
 				</ul>
 			</div>
 		</div>	
