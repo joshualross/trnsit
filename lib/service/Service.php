@@ -2,12 +2,13 @@
 namespace lib\service;
 
 use lib\struct\collection\Stop as StopCollection;
+use lib\service\i\Service as ServiceInterface;
 
 /**
  * Abstract base class for external services
  * @author Joshua Ross <joshualross@gmail.com>
  */
-abstract class Service
+abstract class Service implements ServiceInterface
 {
     const SERVICE_MUNI = 1;
     const SERVICE_BART = 2;
@@ -43,16 +44,6 @@ abstract class Service
      * @return
      */
     protected abstract function init();
-
-    /**
-     * Given a collection of stops, get the predictions
-     * @param lib\struct\collection\Stop $stops
-     * @return
-     */
-    public abstract function getPrediction(StopCollection $stops);
-
-    //get routes?
-    //get route prediction for stop
 
 
     /**
