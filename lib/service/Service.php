@@ -29,7 +29,6 @@ abstract class Service implements ServiceInterface
     /**
      * Constructor
      * @param $url
-     * @return type
      */
     public function __construct($url, $key)
     {
@@ -37,14 +36,12 @@ abstract class Service implements ServiceInterface
         $this->key = $key;
     }
 
-
     /**
      * Return data necessary for initialization of redis cache
      * @todo fill in return type
      * @return
      */
     protected abstract function init();
-
 
     /**
      * Given an url, return the url with the key
@@ -56,7 +53,7 @@ abstract class Service implements ServiceInterface
     /**
      * Perform API call returning the value
      * @param string $url
-     * @return type
+     * @return string
      */
     protected function api($url)
     {
@@ -72,5 +69,61 @@ abstract class Service implements ServiceInterface
         return $data;
     }
 
+    /**
+     * Return a collection of predictions
+     * @param lib\struct\collection\Stop $stops
+     * @return lib\struct\collection\
+     */
+    protected function getCachedPredictions(StopCollection $stops)
+    {
+        //foreach stops, get the cache key
+        //create a pipe
+        //get hash for all the keys
+        //unserialize the value
+        //
+        foreach ($stops as $key => $stop)
+        {
+
+        }
+
+
+        ;
+    }
+
+    /**
+     * Set a set of predictions in cache
+     * scope param
+     * @return type
+     */
+    protected function setCachedPredictions(PredictionCollection $collection)
+    {
+        //get a cache key for each prediction
+        //create a pipe
+        //add the keys to a hash serializing the collection
+        return $this;
+    }
+
+
+    /**
+     * Return a cache key for this prediction
+     * scope $stopId, $route, $direction
+     * @return type
+     */
+    protected function getCacheKey($stopId, $route, $direction)
+    {
+        return implode(':', array($stopId, $route, $direction));
+    }
+
+    /**
+     * Return true if the response from the api is an error
+     * @param string $data
+     * @return boolean
+     */
+    protected function isApiError($data)
+    {
+        if (false !== stripos($data, '<Error'))
+            return true;
+        return false;
+    }
 
 }

@@ -1,5 +1,7 @@
 <?php
 use lib\service\Service;
+use lib\struct\collection\Stop as StopCollection;
+use lib\struct\Stop;
 
 /**
  * Test the lib\service\Service class
@@ -10,13 +12,10 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     /**
      * Test
      * @test
-     * @param float $latitude
-     * @param float $longitude
-     * @dataProvider latitudeDataProvider
+     * @return type
      */
-    public function getNearbyStops($latitude, $longitude)
+    public function setAndGetCachedPredictions()
     {
-
         $predis = new Predis\Client(array(
             'scheme' => 'tcp',
             'host' => 'proxy3.openredis.com',
@@ -24,11 +23,16 @@ class ServiceTest extends PHPUnit_Framework_TestCase
             'password' => '7633cf76fa6391aed1b6fa6861cfa3f14affda5306f336e615877a7e3609f33a',
         ));
 
-        $location = new GeoLocation($latitude, $longitude);
-        $result = $location->getNearbyStops($predis);
-        print_r($result);
-    }
+        $collection = new PredictionCollection();
+        $collection[] = new Prediction(array(
+            'stopId' => 12345,
+            'route' => 24,
+            'direction' => '24__OB1',
+        ));
 
+        $mock = new ServiceMock('foo.bar', '');
+        $mock->setCachedPredictions($collection);
+    }
 }
 
 /**
@@ -37,13 +41,13 @@ class ServiceTest extends PHPUnit_Framework_TestCase
  */
 class ServiceMock extends Service
 {
-    /**
-     *
-     * scope param
-     * @return type
-     */
-    public function name(param)
+    public function getCachedPredictions(StopCollection $stops)
     {
-        ;
+        return parent::getCachedPredictions($stops);
+    }
+
+    public function setCachedPredictions(PredictionCollection $predictions)
+    {
+        return parent::setCachedPredictions($predictions);
     }
 }

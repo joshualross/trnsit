@@ -111,4 +111,26 @@ class Collection extends Struct implements IteratorAggregate, Countable, ArrayAc
         ksort($this->_rows);
         return $this;
     }
+
+    /**
+     * Sort the collection by user defined function
+     * @param function $comparator
+     * @return lib\struct\collection\Collection
+     */
+    public function usort($comparator)
+    {
+        usort($this->_rows, $comparator);
+        return $this;
+    }
+
+    /**
+     * Sort the collection by user defined function
+     * @param function $comparator
+     * @return lib\struct\collection\Collection
+     */
+    public function uasort($comparator)
+    {
+        uasort($this->_rows, $comparator);
+        return $this;
+    }
 }

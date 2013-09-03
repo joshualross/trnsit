@@ -150,7 +150,7 @@ class NextBus extends Service
         }
 
 
-        //get the routes
+        //get the routes from each service
         foreach ($parameters as $service => $stops)
         {
             $url = $this->url . '?command=predictionsForMultiStops&a=' . $service . '&' . implode('&', $stops);
@@ -164,7 +164,6 @@ class NextBus extends Service
 
             //create prediction structs assigning them to the collection
             $iterator = new \SimpleXMLIterator($data);
-//             $monolog->addRecord(200, print_r($iterator, true));
 
             foreach ($iterator->predictions as $directions)
             {
@@ -179,18 +178,23 @@ class NextBus extends Service
                 foreach ($directions->direction as $direction)
                 {
                     $directionTitle = (string)$direction->attributes()->title;
+                    $completed = array();
                     foreach ($direction->prediction as $prediction)
                     {
 //@todo threshold on how much time until next bus?
+                        $dirTag = (string)$prediction->attributes()->dirTag;
+                        if (isset($completed[$dirTag]))
+                            continue;
 
                         $collection[] = new Prediction($attributes + array(
                         	'directionTitle' => $directionTitle,
                             'timestamp' => (string)$prediction->attributes()->epochTime,
                             'seconds' => (string)$prediction->attributes()->seconds,
                             'minutes' => (string)$prediction->attributes()->minutes,
-                            'direction' => (string)$prediction->attributes()->dirTag,
+                            'direction' => $dirTag,
                             'timestamp' => (string)$prediction->attributes()->epochTime,
                         ));
+                        $completed[$dirTag] = true;
                     }
 
                 }
@@ -198,8 +202,7 @@ class NextBus extends Service
 
             }
 
-
-            return $collection->markSuccess();
+            $collection->markSuccess();
         }
 
 
@@ -216,56 +219,5 @@ class NextBus extends Service
     }
 
 
-    /**
-     * Return a collection of predictions
-     * @param lib\struct\collection\Stop $stops
-     * @return lib\struct\collection\
-     */
-    protected function getCachedPredictions(StopCollection $stops)
-    {
-        //foreach stops, get the cache key
-        //create a pipe
-        //get hash for all the keys
-        //unserialize the value
-        //
 
-
-        ;
-    }
-
-    /**
-     * Set a set of predictions in cache
-     * scope param
-     * @return type
-     */
-    protected function setCachedPredictions(PredictionCollection $collection)
-    {
-        //get a cache key for each prediction
-        //create a pipe
-        //add the keys to a hash serializing the collection
-        return $this;
-    }
-
-
-    /**
-     * Return a cache key for this prediction
-     * scope $stopId, $route, $direction
-     * @return type
-     */
-    protected function getCacheKey($stopId, $route, $direction)
-    {
-        return implode(':', array($stopId, $route, $direction));
-    }
-
-    /**
-     * Return true if the response from the api is an error
-     * @param string $data
-     * @return boolean
-     */
-    protected function isApiError($data)
-    {
-        if (false !== stripos($data, '<Error'))
-            return true;
-        return false;
-    }
 }
