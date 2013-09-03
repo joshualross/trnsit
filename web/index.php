@@ -12,6 +12,7 @@ use Silex\Application;
 use app\provider\YamlConfigServiceProvider;
 use lib\geolocation\GeoLocation;
 use lib\service\NextBus;
+use Predis\Silex\PredisServiceProvider;
 
 class UberApplication extends Application
 {
