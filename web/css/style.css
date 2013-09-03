@@ -1,30 +1,41 @@
 .row {
-	margin: 20px;
+	display:block;
+	margin: 60px 0;
+}
+.row div{
+	float:left;
+}
+.row ul {
+	list-style:none;
+	margin: -10px 0 0 10px;
+}
+.route {
+	font-weight: bold;
+	font-size: 40px;
+	color: #FFF;
 }
 .block {
 	line-height: 40px;
-	padding: 20px;
+	padding: 25px;
+	margin-right: 10px;
 }
-.route {
-	background-color: #F1f7f7;
-}
-
 .direction {
-	display: block;
+	font-size: 12px;
+	font-weight: bold;
+}
+.prediction h3 {
+	line-height: 10px;
+}
+.block.soon {
+	background-color: #7CB854;
+}
+.block.moderate {
+	background-color: #F2B701;
+}
+.block.late {
+	background-color: #DC0030;
+}
+.block.delayed {
+	background-color: #7C378A;
 }
 
-.prediction {
-	padding: 10px 100px;
-}
-.prediction.soon {
-	background-color: #A9CC5B;
-}
-.prediction.moderate {
-	background-color: #FFDF12;
-}
-.prediction.late {
-	background-color: #E4582B;
-}
-.prediction.delayed {
-	background-color: #E4582B;
-}
