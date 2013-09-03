@@ -1,0 +1,30 @@
+.row {
+	margin: 20px;
+}
+.block {
+	line-height: 40px;
+	padding: 20px;
+}
+.route {
+	background-color: #F1f7f7;
+}
+
+.direction {
+	display: block;
+}
+
+.prediction {
+	padding: 10px 100px;
+}
+.prediction.soon {
+	background-color: #A9CC5B;
+}
+.prediction.moderate {
+	background-color: #FFDF12;
+}
+.prediction.late {
+	background-color: #E4582B;
+}
+.prediction.delayed {
+	background-color: #E4582B;
+}
