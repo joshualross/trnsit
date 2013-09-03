@@ -64,14 +64,6 @@ $app->get('/prediction/{latitude}/{longitude}', function(UberApplication $app, $
     return $predictions->toJSON();
 });
 
-$app->get('/init', function() use($app) {
-
-});
-
-$app->get('/save', function() use($app) {
-	return 'hello';
-});
-
 $app->get('/predis', function () use ($app) {
     return var_export($app['predis']->info(), true);
 });
