@@ -31,7 +31,7 @@ require.config({
         backbone : 'lib/backbone/backbone',
         bootstrap : 'lib/bootstrap/bootstrap',
         handlebars : 'lib/handlebars/handlebars'
-    }
+    }  
 });
 
 require([

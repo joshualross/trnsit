@@ -2,7 +2,6 @@
 /*
  * This file does some basic setup used for all the php processes
  */
-//@todo how to handle base
 define('__BASE__', __DIR__ . DIRECTORY_SEPARATOR);
 set_include_path(__BASE__ . PATH_SEPARATOR . get_include_path());
 
