@@ -60,43 +60,59 @@ class GeoLocation
      */
     public function getNearbyStops(PredisClient $predis)
     {
-//@todo support expanding the search radius
+        //are we alive?
         $predis->select(0);
         $predis->ping();
-        //@todo lots of room for optimization
-        $intersectResult = array();
+
         $count = 0;
         $distance = 0;
-        while ($count < 3 && count($intersectResult) < 2)
+        //create a collection of stops
+        $collection = new StopCollection();
+        while ($count < 3 && $collection->count() < 2)
         {
             $count++;
             $distance += self::MAX_DISTANCE; //expand the distance searched by max distance
             $result = $predis->pipeline(function($pipe) use($distance) {
                 list($low, $high) = $this->getRange($this->latitude, $distance);
-                $pipe->zrangebyscore('LAT', $low, $high);
+                $pipe->zrangebyscore('LAT', $low, $high, array('withscores' => true));
                 list($low, $high) = $this->getRange($this->longitude, $distance);
-                $pipe->zrangebyscore('LON', $low, $high);
+                $pipe->zrangebyscore('LON', $low, $high, array('withscores' => true));
             });
 
-            $latitudeData = array_shift($result);
-            $longitudeData = array_shift($result);
-//@todo add the lon+lat to the struct
-//@todo one stop per route
-            if (!empty($latitudeData) && !empty($longitudeData))
-                $intersectResult = array_intersect($latitudeData, $longitudeData);
+            /*
+             * Now we have to compute the intersection and store the lat/lon data
+             * it might be easier to duplicate the lat/lon data in the member(stop string)
+             * but then we are storing additional data and for these small sets I don't
+             * think we are gaining a huge advantage
+             */
+            $latitudeDataSet = array_shift($result);
+            $longitudeDataSet = array_shift($result);
 
+             if (empty($latitudeDataSet) || empty($longitudeDataSet))
+                 continue;
+
+            foreach ($latitudeDataSet as $data)
+            {
+                list($stopString, $latitude) = $data;
+                foreach ($longitudeDataSet as $data)
+                {
+                    list($comparator, $longitude) = $data;
+                    if ($stopString == $comparator)
+                    {
+                        $struct = new StopStruct();
+                        $struct->initFromDelimitedData($stopString)
+                            ->setCoordinates($latitude, $longitude)
+                            ->markSuccess();
+
+                        //order by distance!
+                        $collection[$this->getHaversineGreatCircleDistance($latitude, $longitude)] = $struct;
+
+                    }
+                }
+            }
         }
-        //it would be nice to store the lat+lon but we get it again in the prediction
 
-        //create a collection of stops
-        $collection = new StopCollection();
-        foreach ($intersectResult as $key => $stop)
-        {
-            $struct = new StopStruct();
-            $collection[] = $struct->initFromDelimitedData($stop)->markSuccess();
-        }
-
-        return $collection->markSuccess();
+        return $collection->ksort()->markSuccess();
     }
 
 
@@ -113,5 +129,32 @@ class GeoLocation
     protected function getRange($value, $distance=self::MAX_DISTANCE)
     {
         return array($value - $distance, $value + $distance);
+    }
+
+    /**
+     * Calculates the great-circle distance between two points, with
+     * the Haversine formula.
+     * @param float $latitudeFrom Latitude of start point in [deg decimal]
+     * @param float $longitudeFrom Longitude of start point in [deg decimal]
+     * @param float $latitudeTo Latitude of target point in [deg decimal]
+     * @param float $longitudeTo Longitude of target point in [deg decimal]
+     * @param float $earthRadius Mean earth radius in [m]
+     * @return float Distance between points in [m] (same as earthRadius)
+     *
+     * shamelessly taken from http://stackoverflow.com/questions/14750275
+     */
+    function getHaversineGreatCircleDistance($latitude, $longitude, $earthRadius = 6371000)
+    {
+        // convert from degrees to radians
+        $latFrom = deg2rad($this->latitude);
+        $lonFrom = deg2rad($this->longitude);
+        $latTo = deg2rad($latitude);
+        $lonTo = deg2rad($longitude);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+        return $angle * $earthRadius;
     }
 }

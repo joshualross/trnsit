@@ -38,6 +38,18 @@ class Stop extends Struct
     public $service = null;
 
     /**
+     * Latitude
+     * @var float
+     */
+    public $latitude = null;
+
+    /**
+     * Longitude
+     * @var float
+     */
+    public $longitude = null;
+
+    /**
      * Return the redis value for this stop
      * @param string $service
      * @return string
@@ -56,6 +68,19 @@ class Stop extends Struct
     public function initFromDelimitedData($data)
     {
         list($this->service, $this->route, $this->direction, $this->tag, $this->id) = explode(':', $data);
+        return $this;
+    }
+
+    /**
+     * Set the coordinates of this stop
+     * @param float $latitude
+     * @param float $longitude
+     * @return lib\struct\Strop
+     */
+    public function setCoordinates($latitude, $longitude)
+    {
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
         return $this;
     }
 }

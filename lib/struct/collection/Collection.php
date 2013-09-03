@@ -101,4 +101,14 @@ class Collection extends Struct implements IteratorAggregate, Countable, ArrayAc
     {
         return json_encode($this->_rows);
     }
+
+    /**
+     * Sort the collection by keys
+     * @return lib\struct\collection\Collection
+     */
+    public function ksort()
+    {
+        ksort($this->_rows);
+        return $this;
+    }
 }
