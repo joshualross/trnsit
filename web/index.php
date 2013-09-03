@@ -52,10 +52,6 @@ $app->get('/', function() use($app) {
 
 $app->get('/prediction/{latitude}/{longitude}', function(UberApplication $app, $latitude, $longitude) use($app) {
 
-//     $latitude = 37.7728915;
-//     $longitude = -122.436805;
-    $app->log($latitude);
-    $app->log($longitude);
     $location = new lib\geolocation\GeoLocation($latitude, $longitude);
 
     $stops = $location->getNearbyStops($app['predis'], $app['monolog']);
