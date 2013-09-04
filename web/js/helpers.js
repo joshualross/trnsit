@@ -5,9 +5,9 @@ define([
     Handlebars.registerHelper('expected_class', function() {
         if (5 >= this.minutes)
             return 'soon';
-        else if (20 >= this.minutes)
+        else if (15 >= this.minutes)
             return 'moderate';
-        else if (20 < this.minutes < 45)
+        else if (15 < this.minutes < 45)
             return 'late';
         return 'delayed';
     });
