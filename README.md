@@ -77,6 +77,7 @@ Links
 Testing
 =======
 There are a number of unit tests that can be run using the following command
+ 
  $ cd test;php phpunit.phar .
 
 
