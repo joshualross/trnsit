@@ -16,5 +16,11 @@ define([
         if (-1 != this.direction.indexOf('IB'))
             arrowClass = 'icon-arrow-down';
         return arrowClass;
-    });    
+    });  
+    Handlebars.registerHelper('arrival_estimate', function() {
+        var estimate = this.minutes + ' minutes';
+        if (1 > this.minutes)
+            estimate = 'arriving';
+        return estimate;
+    });  
 });

@@ -5,12 +5,14 @@
 </div>
 {{#each predictions}}
 	<div class="wrap">
-		<div>
-			<span class="route block {{expected_class}}">{{route}}</span>
+		<div class="block {{expected_class}}">
+			<div class="route">
+				{{route}}
+			</div>
 		</div>
 		<div>
 			<ul>
-				<li class="prediction"><h3>{{minutes}} minutes</h3></li>
+				<li class="prediction"><h3>{{arrival_estimate}}</h3></li>
 				<li class="title">{{stopTitle}}</li>
 				<li class="direction"><i class="{{arrow_class}}"></i> {{directionTitle}}</li>
 			</ul>
