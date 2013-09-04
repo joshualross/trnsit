@@ -16,6 +16,5 @@ define([
         if (-1 != this.direction.indexOf('IB'))
             arrowClass = 'icon-arrow-down';
         return arrowClass;
-    });
-    
+    });    
 });

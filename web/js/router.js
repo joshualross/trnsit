@@ -3,8 +3,9 @@ define([
     'jquery', 
     'underscore', 
     'backbone', 
-    'view/prediction/list'
-], function($, _, Backbone, PredictionListView) {
+    'view/prediction/list',
+    'view/error'
+], function($, _, Backbone, PredictionListView, ErrorView) {
     var AppRouter = Backbone.Router.extend({
         routes : {
             // Define some URL routes
@@ -17,7 +18,7 @@ define([
         },
         locate: function(callback) {
             if (navigator.geolocation) {
-                var object = navigator.geolocation.getCurrentPosition(function(currentPosition) {
+                navigator.geolocation.getCurrentPosition(function(currentPosition) {
                     this.position = currentPosition;
                     if (typeof callback == "function")
                         callback(this.position);
@@ -28,17 +29,20 @@ define([
     });
     var initialize = function(options) {
         var router = new AppRouter();
-        router.on('route:geolocate', function() {
+        router.on('route:geolocate', function() {           
             this.locate(function(position) {
                 if (this.position)
-                    this.navigate('p', {trigger : true, replace : true});
+                    return this.navigate('p', {trigger : true, replace : true});
+                
+                //render an error view
+                var view = new ErrorView();
+                view.render();
             }.bind(this));
-            
-            //render an error view
         });
         router.on('route:showPredictions', function(options) {
             if (!this.position) //reroute back to geolocate
                 return this.navigate('', {trigger : true, replace : true}); 
+                        
             
             var view = new PredictionListView({position: this.position});
             view.render();
