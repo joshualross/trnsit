@@ -16,7 +16,6 @@ class Prediction extends Struct
      */
     public $id = null;
 
-
     /**
      * Stop Id
      * @var string

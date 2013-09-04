@@ -164,7 +164,7 @@ class NextBus extends Service
 
             //create prediction structs assigning them to the collection
             $iterator = new \SimpleXMLIterator($data);
-
+            $completed = array();
             foreach ($iterator->predictions as $directions)
             {
                 $attributes = array(
@@ -178,12 +178,16 @@ class NextBus extends Service
                 foreach ($directions->direction as $direction)
                 {
                     $directionTitle = (string)$direction->attributes()->title;
-                    $completed = array();
                     foreach ($direction->prediction as $prediction)
                     {
-//@todo threshold on how much time until next bus?
+
                         $dirTag = (string)$prediction->attributes()->dirTag;
-                        if (isset($completed[$dirTag]))
+                        //parse intelligent direction
+                        $direction = Prediction::DIRECTION_INBOUND;
+                        if (false === strpos($dirTag, Prediction::DIRECTION_INBOUND))
+                            $direction = Prediction::DIRECTION_OUTBOUND;
+
+                        if (isset($completed[$attributes['route'] . $direction]))
                             continue;
 
                         $struct = new Prediction($attributes + array(
@@ -192,16 +196,12 @@ class NextBus extends Service
                             'seconds' => (string)$prediction->attributes()->seconds,
                             'minutes' => (string)$prediction->attributes()->minutes,
                             'dirTag' => $dirTag,
+                            'direction' => $direction,
                             'timestamp' => (string)$prediction->attributes()->epochTime,
                         ));
 
-                        //parse intelligent direction
-                        $struct->direction = Prediction::DIRECTION_INBOUND;
-                        if (false === strpos($struct->dirTag, Prediction::DIRECTION_INBOUND))
-                            $struct->direction = Prediction::DIRECTION_OUTBOUND;
-
                         $collection[] = $struct->markSuccess();
-                        $completed[$dirTag] = true;
+                        $completed[$attributes['route'] . $direction] = true;
                     }
 
                 }

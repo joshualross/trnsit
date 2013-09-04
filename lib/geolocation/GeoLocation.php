@@ -50,10 +50,8 @@ class GeoLocation
      * Obviously a square is sub-optimal, but I felt it was
      * the more performant for this process.
      *
-     *
      * This algorithm will retry with larger and larger squares until we
      * have a reasonable amount of stops or the maximum tries has finished
-     *
      *
      * @param Predis\Client $predis
      * @return lib\struct\collection\Collection
