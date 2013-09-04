@@ -24,6 +24,10 @@ class GeoLocationTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test getNearbyStops
+     *
+     * This is lame, but a good check to make sure the data set is intact
+     * @todo password handling
+     *
      * @test
      * @param float $latitude
      * @param float $longitude
@@ -40,8 +44,8 @@ class GeoLocationTest extends PHPUnit_Framework_TestCase
         ));
 
         $location = new GeoLocation($latitude, $longitude);
-        $result = $location->getNearbyStops($predis);
-        print_r($result);
+        $collection = $location->getNearbyStops($predis);
+        $this->assertTrue($collection->count() > 0);
     }
 
 }

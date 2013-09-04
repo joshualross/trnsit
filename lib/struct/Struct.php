@@ -19,6 +19,16 @@ class Struct
      */
     public $_error = null;
 
+    /**
+     * Constructor
+     * @param array $initialValues
+     * @return type
+     */
+    public function __construct(array $initialValues = array())
+    {
+        foreach ($initialValues as $key => $value)
+            $this->{$key} = $value;
+    }
 
     /**
      * Mark Success
@@ -31,16 +41,6 @@ class Struct
         return $this;
     }
 
-    /**
-     * Constructor
-     * @param array $initialValues
-     * @return type
-     */
-    public function __construct(array $initialValues = array())
-    {
-        foreach ($initialValues as $key => $value)
-            $this->{$key} = $value;
-    }
 
 
     /**
@@ -63,5 +63,16 @@ class Struct
     public function toJSON()
     {
         return json_encode(get_object_vars($this));
+    }
+
+    /**
+     * Set variables
+     * @param string $key
+     * @param mixed $value
+     * @return type
+     */
+    public function __set($key, $value)
+    {
+        return; //this prevents properties that are not defined from being set
     }
 }

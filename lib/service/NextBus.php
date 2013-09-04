@@ -128,14 +128,10 @@ class NextBus extends Service
     /**
      * Return a collection of predictions for given stops
      * @param lib\struct\collection\Stop
-     * @param Predis\Client $predis
-     *     I don't feel good about this, but until I have a proper layer/factory between me
-     *     and the data, I don't have much choice
      * @return lib\struct\collection\Prediction
      */
-    public function getPrediction(StopCollection $stops, PredisClient $predis)
+    public function getPrediction(StopCollection $stops)
     {
-        $monolog = func_get_arg(2);
         $collection = new PredictionCollection();
 
         //build an array of get parameters
@@ -153,48 +149,12 @@ class NextBus extends Service
 
             //stopid,route,direction
             $parameters[$serviceName][$stop->id . $stop->route . $direction] = "stops={$stop->route}|{$stop->tag}";
-/*
-            $keys[] = $this->getCacheKey($serviceName, $stop->id, $stop->route, $direction);
-*/
-
             //create a stopTag => $stopId data store, we use this for the predictions
             $stopIds[$stop->tag] = $stop->id;
 
         }
 
-/*
-        //this is crude, but redis hash does not support expire, so we work around it
-        $response = $predis->get('PCACHE_EXPIRE');
-        if (empty($response) || (time() - $response) > 60)
-        {
-            $predis->del('PCACHE');
-            $predis->set('PCACHE_EXPIRE', time());
-        }
-        else
-        {
-            //get the cached predictions, unsetting all the stops we already have predictions for
-            $predis->select(0);
-            $predis->ping();
-            $response = $predis->pipeline(function($pipe) use ($keys) {
-                foreach ($keys as $key)
-                    $pipe->hget('PCACHE', $key);
-            });
-
-            foreach ($response as $cachedPrediction)
-            {
-                if (empty($cachedPrediction))
-                    continue;
-
-                $prediction = unserialize($cachedPrediction);
-                unset($parameters[$prediction->service][$prediction->stopId . $prediction->route . $prediction->direction]);
-                $collection[] = $prediction;
-            }
-        }
-*/
-
-
         //get the routes from each service
-        /*$toCache = array();*/
         foreach ($parameters as $service => $stops)
         {
             $url = $this->url . '?command=predictionsForMultiStops&a=' . $service . '&' . implode('&', $stops);
@@ -244,31 +204,16 @@ class NextBus extends Service
                             'timestamp' => (string)$prediction->attributes()->epochTime,
                         ));
 
+                        //one stop per route direction
                         if (!isset($completed[$attributes['route'] . $direction]))
                             $collection[] = $struct->markSuccess();
-/*
-                        $key = $this->getCacheKey($struct->service, $struct->stopId, $struct->route, $struct->direction);
-                        $toCache[$key] = $struct;
-*/
 
                         $completed[$attributes['route'] . $direction] = true;
                     }
                 }
             }
         }
-/*
-        $predis->select(0);
-        $predis->ping();
-        //these are all new predictions, lets cache them
-        $response = $predis->pipeline(function($pipe) use ($toCache) {
-            foreach ($toCache as $key => $prediction)
-            {
-                $pipe->hset('PCACHE', $key, serialize($prediction));
-                $pipe->expire($key, 60);
-            }
-        });
-*/
-        //@todo merge all service collections together
+
         return $collection->markSuccess();
     }
 

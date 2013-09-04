@@ -2,6 +2,7 @@
 namespace lib\service;
 
 use lib\struct\collection\Stop as StopCollection;
+use lib\struct\collection\Prediction as PredictionCollection;
 use lib\service\i\Service as ServiceInterface;
 
 /**
@@ -77,7 +78,7 @@ abstract class Service implements ServiceInterface
     protected function getCachedPredictions(StopCollection $stops)
     {
         //get from cache, unserialize
-        //@todo move caching from getPrediction to here
+        //@todo cache layer for predictions
     }
 
     /**
@@ -88,7 +89,7 @@ abstract class Service implements ServiceInterface
     protected function setCachedPredictions(PredictionCollection $collection)
     {
         //add to cache, serialize
-        //@todo move setting of caching in getPrediction to here
+        //@todo cache layer for predictions
         return $this;
     }
 
@@ -103,6 +104,7 @@ abstract class Service implements ServiceInterface
      */
     protected function getCacheKey($service, $stopId, $route, $dirTag)
     {
+        //@todo this might not be a good cache key, had issues
         return implode(':', array($service, $stopId, $route, $dirTag));
     }
 

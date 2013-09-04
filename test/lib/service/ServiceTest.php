@@ -1,6 +1,7 @@
 <?php
 use lib\service\Service;
 use lib\struct\collection\Stop as StopCollection;
+use lib\struct\collection\Prediction as PredictionCollection;
 use lib\struct\Stop;
 
 /**
@@ -10,37 +11,66 @@ use lib\struct\Stop;
 class ServiceTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * A data ... ahem... Data Provider
+     * @return array
+     */
+    public function dataDataProvider()
+    {
+        return array(
+        	array(
+        	    '<predictions stopTitle="Civic Center Station Outbound" routeCode="1" routeTitle="N - Judah">' .
+        	    '<prediction seconds="218" minutes="3" epochTime="1229637162309" isDeparture="false" />' .
+        	    ' <prediction seconds="976" minutes="16" epochTime="122963716923" isDeparture="false" />' .
+        	    '</predictions>',
+        	    false
+            ),
+            array(
+                '<body><Error shouldRetry="true">Agency server blah blah blah</Error></body>',
+                true,
+            ),
+        );
+    }
+
+    /**
      * Test
      * @test
-     * @return type
+     * @dataProvider dataDataProvider
      */
-    public function setAndGetCachedPredictions()
+    public function isApiError($data, $expected)
     {
-        $predis = new Predis\Client(array(
-            'scheme' => 'tcp',
-            'host' => 'proxy3.openredis.com',
-            'port' => '13034',
-            'password' => '7633cf76fa6391aed1b6fa6861cfa3f14affda5306f336e615877a7e3609f33a',
-        ));
-
-        $collection = new PredictionCollection();
-        $collection[] = new Prediction(array(
-            'stopId' => 12345,
-            'route' => 24,
-            'direction' => '24__OB1',
-        ));
-
-        $mock = new ServiceMock('foo.bar', '');
-        $mock->setCachedPredictions($collection);
+        $service = new ServiceMock();
+        $this->assertEquals($expected, $service->isApiError($data));
     }
 }
 
 /**
- * Service Mock
+ * Service Mock - create a basic, testable, sublcass
  * @author Joshua Ross <joshualross@gmail.com>
  */
 class ServiceMock extends Service
 {
+    public function __construct()
+    {
+        return parent::__construct('foo', 'bar');
+    }
+    protected function init()
+    {
+    }
+
+    public function isApiError($data)
+    {
+        return parent::isApiError($data);
+    }
+
+    public function appendKey($url)
+    {
+        return $url;
+    }
+
+    public function getPrediction(StopCollection $stops)
+    {
+    }
+
     public function getCachedPredictions(StopCollection $stops)
     {
         return parent::getCachedPredictions($stops);

@@ -43,7 +43,7 @@ class GeoLocation
      * I'm such a rookie here.  Basically we calculate a roughly
      * half mile square around the users location by adding-to
      * and subtracting from each piece of the coordinate.  Because
-     * in this small of a rectangle, the world is more or less flat
+     * in this small of a rectangle, the world is more or less flat,
      * I didn't worry too much about the curviture of the earth and
      * the convergence of latitude.
      *

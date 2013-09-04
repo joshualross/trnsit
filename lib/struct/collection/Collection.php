@@ -20,6 +20,20 @@ class Collection extends Struct implements IteratorAggregate, Countable, ArrayAc
     public $_rows = array();
 
     /**
+     * Construct - optionally takes array of Structs
+     * @param array
+     * @return type
+     */
+    public function __construct(array $initialValues=array())
+    {
+        foreach ($initialValues as $key => $struct)
+        {
+            if ($struct instanceof Struct)
+                $this[$key] = $struct;
+        }
+    }
+
+    /**
      * @param mixed $offset
      * @return lib\struct\Struct
      */
