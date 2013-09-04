@@ -46,7 +46,6 @@ $app->before(function(Request $request) {
 
 // definitions
 $app->get('/', function() use($app) {
-
     return $app['twig']->render('index.twig');
 });
 
@@ -59,7 +58,7 @@ $app->get('/prediction/{latitude}/{longitude}', function(UberApplication $app, $
     //@todo other services
     $serviceConfig = $app['config']['services']['NextBus'];
     $service = new NextBus($serviceConfig['url'], $serviceConfig['key']);
-    $predictions = $service->getPrediction($stops, $app['monolog']);
+    $predictions = $service->getPrediction($stops, $app['predis'], $app['monolog']);
 
     return $predictions->toJSON();
 });

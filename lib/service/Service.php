@@ -72,22 +72,12 @@ abstract class Service implements ServiceInterface
     /**
      * Return a collection of predictions
      * @param lib\struct\collection\Stop $stops
-     * @return lib\struct\collection\
+     * @return lib\struct\collection\Collection
      */
     protected function getCachedPredictions(StopCollection $stops)
     {
-        //foreach stops, get the cache key
-        //create a pipe
-        //get hash for all the keys
-        //unserialize the value
-        //
-        foreach ($stops as $key => $stop)
-        {
-
-        }
-
-
-        ;
+        //get from cache, unserialize
+        //@todo move caching from getPrediction to here
     }
 
     /**
@@ -97,21 +87,23 @@ abstract class Service implements ServiceInterface
      */
     protected function setCachedPredictions(PredictionCollection $collection)
     {
-        //get a cache key for each prediction
-        //create a pipe
-        //add the keys to a hash serializing the collection
+        //add to cache, serialize
+        //@todo move setting of caching in getPrediction to here
         return $this;
     }
 
 
     /**
      * Return a cache key for this prediction
-     * scope $stopId, $route, $direction
-     * @return type
+     * @param string $service
+     * @param string $stopId
+     * @param string $route
+     * @param string $dirTag
+     * @return string
      */
-    protected function getCacheKey($stopId, $route, $direction)
+    protected function getCacheKey($service, $stopId, $route, $dirTag)
     {
-        return implode(':', array($stopId, $route, $direction));
+        return implode(':', array($service, $stopId, $route, $dirTag));
     }
 
     /**
