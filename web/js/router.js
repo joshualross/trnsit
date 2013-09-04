@@ -10,9 +10,9 @@ define([
         routes : {
             // Define some URL routes
             '' : 'geolocate',
+            'u' : 'updateGeolocation',
             'p' : 'showPredictions',
             'prediction' : 'showPredictions',
-
             // Default
             '*actions' : 'defaultAction'
         },
@@ -29,7 +29,7 @@ define([
     });
     var initialize = function(options) {
         var router = new AppRouter();
-        router.on('route:geolocate', function() {           
+        router.on('route:geolocate', function() {
             this.locate(function(position) {
                 if (this.position)
                     return this.navigate('p', {trigger : true, replace : true});
@@ -39,11 +39,14 @@ define([
                 view.render();
             }.bind(this));
         });
+        router.on('route:updateGeolocation', function(options) {
+            this.postion = false;
+            return this.navigate('', {trigger : true, replace : true});
+        });
         router.on('route:showPredictions', function(options) {
             if (!this.position) //reroute back to geolocate
                 return this.navigate('', {trigger : true, replace : true}); 
                         
-            
             var view = new PredictionListView({position: this.position});
             view.render();
         });
@@ -52,6 +55,10 @@ define([
             console.log('No route:', actions);
         });
         Backbone.history.start();
+        //navigate from a view
+        Backbone.View.prototype.navigate = function(route) {
+            return router.navigate(route, {trigger : true});
+        };
     };
     return {
         initialize: initialize

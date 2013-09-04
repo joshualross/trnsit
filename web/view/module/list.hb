@@ -1,5 +1,6 @@
 <div id="navigation">
-    <a class="btn reload" href="javascript:;"><i class="icon-repeat"></i> Reload</a>
+    <a class="btn update" href="javascript:;"><i class="icon-bullseye"></i> Update</a>
+    <a class="btn reset" href="javascript:;"><i class="icon-undo"></i> Reset</a>
     <a class="btn inbound" href="javascript:;"><i class="icon-arrow-down"></i> Inbound</a>
     <a class="btn outbound" href="javascript:;"><i class="icon-arrow-up"></i> Outbound</a>
 </div>
