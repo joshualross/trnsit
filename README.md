@@ -26,13 +26,13 @@ only build my first single page app, but get up to speed on new frameworks,
 technologies, and language features.  
 
 Here is a short list of tools/libraries/features I used for the very first time:
- - composer (getcomposer.org)
- - silex (silex.sensiolabs.org‎)
+ - composer (http://getcomposer.org)
+ - silex (http://silex.sensiolabs.org‎)
  - twig (http://twig.sensiolabs.org/)
- - monolog (github.com/Seldaek/monolog)
- - requirejs (requirejs.org)
- - bootstrap (getbootstrap.com)
- - font-awesome (fortawesome.github.io/Font-Awesome/)
+ - monolog (http://github.com/Seldaek/monolog)
+ - requirejs (http://requirejs.org)
+ - bootstrap (http://getbootstrap.com)
+ - font-awesome (http://fortawesome.github.io/Font-Awesome/)
  - PHP 5.4, (specifically traits)
  - PSR-0 (https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
  - Single Page Applications in any frontend framework
