@@ -27,6 +27,10 @@ class Stop extends Struct
 
     /**
      * Direction
+     *
+     * A stop direction could be muni style 24__OB5 or different for another service
+     *  it's recommended to parse the direction before populating the prediction
+     *
      * @var mixed
      */
     public $direction = null;

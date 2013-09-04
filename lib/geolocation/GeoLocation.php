@@ -11,7 +11,7 @@ use lib\struct\Stop as StopStruct;
 class GeoLocation
 {
     //roughly 1/4 mile in sf bay area
-    const MAX_DISTANCE = 0.002;
+    const MAX_DISTANCE = 0.005;
 
     /**
      * Latitude for this location

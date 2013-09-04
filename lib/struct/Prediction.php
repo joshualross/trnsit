@@ -7,6 +7,9 @@ namespace lib\struct;
  */
 class Prediction extends Struct
 {
+    const DIRECTION_INBOUND = 'IB';
+    const DIRECTION_OUTBOUND = 'OB';
+
     /**
      * Id
      * @var mixed
@@ -37,6 +40,12 @@ class Prediction extends Struct
      * @var string
      */
     public $routeTitle = null;
+
+    /**
+     * Direction
+     * @var mixed
+     */
+    public $dirTag = null;
 
     /**
      * Direction

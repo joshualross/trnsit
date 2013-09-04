@@ -103,7 +103,7 @@ class NextBus extends Service
                             'id' => (string)$routeStop->attributes()->stopId, //get the real stop id
                             'tag' => $stopTag,
                             'service' => $service,
-                            'direction' => $direction,
+                            'dirTag' => $direction,
                             'route' => $route,
                         ));
 
@@ -186,14 +186,21 @@ class NextBus extends Service
                         if (isset($completed[$dirTag]))
                             continue;
 
-                        $collection[] = new Prediction($attributes + array(
+                        $struct = new Prediction($attributes + array(
                         	'directionTitle' => $directionTitle,
                             'timestamp' => (string)$prediction->attributes()->epochTime,
                             'seconds' => (string)$prediction->attributes()->seconds,
                             'minutes' => (string)$prediction->attributes()->minutes,
-                            'direction' => $dirTag,
+                            'dirTag' => $dirTag,
                             'timestamp' => (string)$prediction->attributes()->epochTime,
                         ));
+
+                        //parse intelligent direction
+                        $struct->direction = Prediction::DIRECTION_INBOUND;
+                        if (false === strpos($struct->dirTag, Prediction::DIRECTION_INBOUND))
+                            $struct->direction = Prediction::DIRECTION_OUTBOUND;
+
+                        $collection[] = $struct->markSuccess();
                         $completed[$dirTag] = true;
                     }
 
