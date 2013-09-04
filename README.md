@@ -70,14 +70,14 @@ And probably longer term, less useful items
 
 Links
 =====
-Site: http://trnsit.com
-Github: https://github.com/joshualross/trnsit (it's private, ask me, I'll add you)
+ - Site: http://trnsit.com
+ - Github: https://github.com/joshualross/trnsit (it's private, ask me, I'll add you)
 
 
 Testing
 =======
 There are a number of unit tests that can be run using the following command
-$ cd test;php phpunit.phar .
+ $ cd test;php phpunit.phar .
 
 
 Requirements:
