@@ -1,7 +1,6 @@
 <?php
 // web/index.php
 require_once '../bootstrap.php';
-//@todo base directory for loading settings etc
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,14 +13,14 @@ use lib\geolocation\GeoLocation;
 use lib\service\NextBus;
 use Predis\Silex\PredisServiceProvider;
 
-class UberApplication extends Application
+class TrnsitApplication extends Application
 {
     use Application\MonologTrait;
     use Application\TwigTrait;
 }
 
-$app = new UberApplication();
-$app['debug'] = true;
+$app = new TrnsitApplication();
+//$app['debug'] = true;
 
 $app->register(new YamlConfigServiceProvider(__BASE__ . 'config' . DIRECTORY_SEPARATOR . 'settings.yaml'));
 //@todo handle config so that objects in yaml correspond to dot notation
@@ -49,7 +48,7 @@ $app->get('/', function() use($app) {
     return $app['twig']->render('index.twig');
 });
 
-$app->get('/prediction/{latitude}/{longitude}', function(UberApplication $app, $latitude, $longitude) use($app) {
+$app->get('/prediction/{latitude}/{longitude}', function(TrnsitApplication $app, $latitude, $longitude) use($app) {
 
     $location = new lib\geolocation\GeoLocation($latitude, $longitude);
 
