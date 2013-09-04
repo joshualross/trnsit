@@ -1,39 +1,87 @@
+trnsit.com
+
+Author: Joshua Ross <joshualross@gmail.com>
+http://joshualross.us
+
+tl;dr
+I used lots of new stuff to build a single page app that predicts transit arrivals,
+check it out at http://trnsit.com
+
+Description
+===========
+
+Thanks for checking out my coding challenge.  What started as a submission for 
+Uber has become something I'm invested in building out into an actual service.  
+I've built a transit departure single page application that leverages data 
+from the nextmuni.com api.  My main motivation was nextmuni.com, which 
+frequently forces me to wait and wait and wait for a prediction.  I built this 
+app with the intention of improving the responsiveness of predictions and also, 
+although this won't be difficult, making it more beautiful.
+
+Since this started as a coding challenge, I really tried to extend myself by 
+choosing tools that I was unfamiliar with.  I, too, thrive on learning new 
+tools and methods.  I haven't had many opportunities to do so in my current 
+role as our stack is pretty well defined.  I took this as an opportunity to not 
+only build my first single page app, but get up to speed on new frameworks, 
+technologies, and language features.  
+
+Here is a short list of tools/libraries/features I used for the very first time:
+ - composer (getcomposer.org)
+ - silex (silex.sensiolabs.org‎)
+ - twig (http://twig.sensiolabs.org/)
+ - monolog (github.com/Seldaek/monolog)
+ - requirejs (requirejs.org)
+ - bootstrap (getbootstrap.com)
+ - font-awesome (fortawesome.github.io/Font-Awesome/)
+ - PHP 5.4, (specifically traits)
+ - PSR-0 (https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
+ - Single Page Applications in any frontend framework
+ - Redis (specifically sorted sets and hashes)
+ 
+
+Although I have used Backbone for lazy loading tabular data in the past, I've 
+never built a single page application with it.  My front end skills, especially 
+html/css, since the majority of my work from my current role is mid/backend.
+So this challenge was fun, probably too much fun.
+
+Interestingly, I had a lot of revelations about how Uber must do driver and 
+user matching.  I didn't spend too much time developing algorithmic solutions 
+to determine transit stops near my users due to time constraints.  But I figure
+that Uber must use nearest neighbor or closest point algorithms.  These are 
+great if you have a data store that allows you to calculate haversine distance 
+on the fly.  Redis seemed like a good fit for the small amount of data I was
+going to be storing.  So I came up with a much simpler approach that calculates 
+a range of latitude and longitude minimums and maximums.  Then I calculated the 
+haversine distance from my user's geolocation to each stop that was within the 
+range.  This enabled me to sort the stops in order of distance.  The number of 
+muni stops, 11222, is small enough that this approach was performant.  
+
+There is a whole list of things I would like to add, including these items:
+ - prediction caching (60s expiry)
+ - expand range (show more stops)
+ - map user location
+ - map stop location
+
+And probably longer term, less useful items
+ - stop preferences for users
+ - view current transit vehicles
+ - plot route on map
+ - predict from user input coordinate
+
+Links
+=====
+Site: http://trnsit.com
+Github: https://github.com/joshualross/trnsit (it's private, ask me, I'll add you)
 
 
-
-I thought about how Uber must use algorithms to find nearest neighbor or closest points
-
-but I wanted to find abitrary points z distance from x,y on the surface of the earth
-
-since distances were so small it wasn't worth it to calculate the actual longitude 
-based on the circumference of the earth, I felt my algorithms were simple but 
-just enough
-
-pull a range of lon between two values
-pull a range of lat between two values
-intersect those data points to get the nearby stops
-if no stops, increase distance of search and try again
+Testing
+=======
+There are a number of unit tests that can be run using the following command
+$ cd test;php phpunit.phar .
 
 
-11223 muni stops
-
-
-
-
-
-
-
-
-
-http://backbonetutorials.com/organizing-backbone-using-modules/
-
-no experience using require, bootstrap, silex, twig
-
-I've only used backbone to lazy load data that was then sortable and summarizable in table form
-
-
-
-
+Requirements:
+*******************************************************************************
 
 Web Coding Challenge
 ====================
