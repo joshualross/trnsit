@@ -12,11 +12,11 @@ require.config({
         }
     },
     paths : {
-        jquery : 'lib/jquery/jquery.min',
+        jquery : 'lib/jquery/jquery-2.0.3.min',
         underscore : 'lib/underscore/underscore-min',
         backbone : 'lib/backbone/backbone-min',
         bootstrap : 'lib/bootstrap/bootstrap.min',
-        handlebars : 'lib/handlebars/handlebars.runtime'
+        handlebars : 'lib/handlebars/handlebars'
     }  
 });
 
