@@ -14,7 +14,7 @@ define(function (require) {
   // Create a function that wraps `window.ga`.
   // This allows dependant modules to use `window.ga` without knowingly
   // programming against a global object.
-  module = function () { console.log(arguments); window.ga.apply(this, arguments); };
+  module = function () { window.ga.apply(this, arguments); };
  
   // Asynchronously load Google Analytics, letting it take over our `window.ga`
   // object after it loads. This allows us to add events to `window.ga` even

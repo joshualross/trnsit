@@ -29,18 +29,19 @@ define([
     var initialize = function(options) {
         var router = new AppRouter();
         router.on('route:geolocate', function() {
+            analytics('send', 'event', 'route', 'route', '#geolocate');
             this.locate(function(position) {
                 if (this.position)
                     return this.navigate('prediction', {trigger : true, replace : true});
                 
-                analytics('send', '#error-geolocate');
+                analytics('send', 'event', 'route', 'error', 'geolocate');
                 //render an error view
                 var view = new ErrorView();
                 view.render();
             }.bind(this));
         });
         router.on('route:updateGeolocation', function(options) {
-            analytics('send', '#geolocate-update');
+            analytics('send', 'event', 'route', 'click', '#geolocate-update');
             this.postion = false;
             return this.navigate('', {trigger : true, replace : true});
         });
@@ -48,13 +49,13 @@ define([
             if (!this.position) //reroute back to geolocate
                 return this.navigate('', {trigger : true, replace : true}); 
                         
-            analytics('send', '#prediction');
+            analytics('send', 'event', 'route', 'route', '#prediction');
             var view = new PredictionListView({position: this.position});
             view.render();
         });
         router.on('route:defaultAction', function(actions) {
             // We have no matching route, lets just log what the URL was
-            analytics('send', '#error-noroute');
+            analytics('send', 'event', 'route', 'error', 'noroute');
             //render an error view
             var view = new ErrorView();
             view.render();
