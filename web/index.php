@@ -12,6 +12,7 @@ use app\provider\YamlConfigServiceProvider;
 use lib\geolocation\GeoLocation;
 use lib\service\NextBus;
 use Predis\Silex\PredisServiceProvider;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class TrnsitApplication extends Application
 {
@@ -43,8 +44,23 @@ $app->before(function(Request $request) {
     }
 });
 
+//set version cookie
+$app->after(function(Request $request, Response $response) use ($app) {
+    $version = $app['predis']->get('VERSION');
+    if (empty($version)) {
+        //load from file
+        $version = trim(file_get_contents(__BASE__ . 'VERSION'));
+        $app['predis']->setex('VERSION', 600, $version);
+        $app->log('reloaded version: ' . $version);
+    }
+    $cookie = new Cookie('v', $version);
+    $response->headers->setCookie($cookie);
+});
+
 // definitions
 $app->get('/', function() use($app) {
+    //set a cookie`
+
     return $app['twig']->render('index.twig');
 });
 

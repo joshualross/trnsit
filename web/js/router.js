@@ -29,6 +29,10 @@ define([
     var initialize = function(options) {
         var router = new AppRouter();
         router.on('route:geolocate', function() {
+            
+            //check the cookie, has the value changed
+//            console.log(document.cookie);
+            
             analytics('send', 'event', 'route', 'route', '#geolocate');
             this.locate(function(position) {
                 if (this.position)
