@@ -23,4 +23,4 @@ require.config({
 require(['app'], function(App) {
     App.initialize();
 });
-require(['helpers'], function(){})
+require(['helpers'], function(){});

@@ -1,17 +1,16 @@
 // Filename: router.js
 define([
-    'jquery', 
-    'underscore', 
     'backbone', 
+    'analytics',
     'view/prediction/list',
     'view/error'
-], function($, _, Backbone, PredictionListView, ErrorView) {
+], function(Backbone, analytics, PredictionListView, ErrorView) {
     var AppRouter = Backbone.Router.extend({
         routes : {
             // Define some URL routes
             '' : 'geolocate',
-            'u' : 'updateGeolocation',
-            'p' : 'showPredictions',
+            'update' : 'updateGeolocation',
+            'prediction' : 'showPredictions',
             'prediction' : 'showPredictions',
             // Default
             '*actions' : 'defaultAction'
@@ -20,7 +19,7 @@ define([
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(currentPosition) {
                     this.position = currentPosition;
-                    if (typeof callback == "function")
+                    if (typeof callback == 'function')
                         callback(this.position);
                 }.bind(this));
             }
@@ -32,14 +31,16 @@ define([
         router.on('route:geolocate', function() {
             this.locate(function(position) {
                 if (this.position)
-                    return this.navigate('p', {trigger : true, replace : true});
+                    return this.navigate('prediction', {trigger : true, replace : true});
                 
+                analytics('send', '#error-geolocate');
                 //render an error view
                 var view = new ErrorView();
                 view.render();
             }.bind(this));
         });
         router.on('route:updateGeolocation', function(options) {
+            analytics('send', '#geolocate-update');
             this.postion = false;
             return this.navigate('', {trigger : true, replace : true});
         });
@@ -47,12 +48,16 @@ define([
             if (!this.position) //reroute back to geolocate
                 return this.navigate('', {trigger : true, replace : true}); 
                         
+            analytics('send', '#prediction');
             var view = new PredictionListView({position: this.position});
             view.render();
         });
         router.on('route:defaultAction', function(actions) {
             // We have no matching route, lets just log what the URL was
-            console.log('No route:', actions);
+            analytics('send', '#error-noroute');
+            //render an error view
+            var view = new ErrorView();
+            view.render();
         });
         Backbone.history.start();
         //navigate from a view
@@ -62,5 +67,5 @@ define([
     };
     return {
         initialize: initialize
-    }
+    };
 });

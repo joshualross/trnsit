@@ -62,9 +62,9 @@ $app->get('/prediction/{latitude}/{longitude}', function(TrnsitApplication $app,
     return $predictions->toJSON();
 });
 
-$app->get('/predis', function () use ($app) {
-    return var_export($app['predis']->info(), true);
-});
+// $app->get('/predis', function () use ($app) {
+//     return var_export($app['predis']->info(), true);
+// });
 
 //@todo handling for different error types, 404, 503, etc
 $app->error(function (\Exception $e, $code) use ($app) {

@@ -19,7 +19,7 @@ define([
             this.$el.html(this.template({predictions: this.collection.toJSON()}));
         },
         update: function() {
-            return this.navigate('u');
+            return this.navigate('update');
         },
         renderInbound: function() {
             return this.renderDirection('IB');
